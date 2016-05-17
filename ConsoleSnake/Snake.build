@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="ConsoleSnake" default="run">
+	<property name="nant.settings.currentframework" value="net-4.0" />
+	<property name="basename" value="ConsoleSnake"/>
+	<property name="debug" value="false"/>
+	<property name="buildmode" value="release"/>
+	<property name="build.dir" value="bin"/>
+
+	<target name="clean" description="cleans build directory">
+		<delete dir="${build.dir}" if="${directory::exists(build.dir)}" />
+	</target>
+
+	<target name="debug" depends="clean">
+        <property name="debug" value="true" />
+		<property name="buildmode" value="debug"/>
+	</target>
+
+	<target name="release" depends="clean">
+        <property name="debug" value="false" />
+		<property name="buildmode" value="release"/>
+	</target>
+
+	<target name="build" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <csc target="exe" output="${build.dir}/${buildmode}/${basename}.exe" debug="${debug}">
+		<sources>
+			<include name="**/*.cs" />
+		</sources>
+		<resources>
+			<include name="**/*.resx" />
+		</resources>
+	</csc>
+	</target>
+
+	<target name="run" depends="build">
+		<exec program="${basename}.exe" basedir="${build.dir}" />
+	</target>
+</project>
