@@ -33,6 +33,6 @@
 	</target>
 
 	<target name="run" depends="build">
-		<exec program="${basename}.exe" basedir="${build.dir}" />
+		<exec program="${basename}.exe" basedir="${build.dir}\${buildmode}" />
 	</target>
 </project>
